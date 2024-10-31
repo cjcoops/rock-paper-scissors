@@ -67,6 +67,7 @@ function determineResult(userPick: Choice, housePick: Choice): Result {
 }
 
 function HomeComponent() {
+  const [score, setScore] = useState(0);
   const [userPick, setUserPick] = useState<Choice>();
   const [housePick, setHousePick] = useState<Choice>();
   const [gameStage, setGameStage] = useState<GameStage>("waitingForUser");
@@ -87,10 +88,17 @@ function HomeComponent() {
         const result = determineResult(userPick, housePick);
         setResult(result);
         setGameStage("showResult");
-        // Update scoreboard
-        console.log(result);
-      }, 2000);
-    }, 2000);
+        setScore((prevScore: number) => {
+          if (result === "win") {
+            return prevScore + 1;
+          } else if (result === "lose") {
+            return prevScore - 1;
+          } else {
+            return prevScore;
+          }
+        });
+      }, 1000);
+    }, 1000);
   };
 
   const resetGame = () => {
@@ -106,7 +114,7 @@ function HomeComponent() {
         <h1>Rock Paper Scissors</h1>
         <div>
           <div>Score</div>
-          <div>12</div>
+          <div>{score}</div>
         </div>
       </header>
       <main>
