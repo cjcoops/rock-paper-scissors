@@ -24,7 +24,7 @@ function Choices({ onUserPick }: { onUserPick: (userPick: Choice) => void }) {
   );
 }
 
-function Game({
+function Results({
   userPick,
   housePick,
   result,
@@ -68,8 +68,6 @@ function Scoreboard({ score }: { score: number }) {
 }
 
 function determineResult(userPick: Choice, housePick: Choice): Result {
-  console.log({ userPick, housePick });
-
   if (!userPick || !housePick) return;
   if (userPick === housePick) return "draw";
   if (userPick === "paper" && housePick === "rock") return "win";
@@ -78,6 +76,7 @@ function determineResult(userPick: Choice, housePick: Choice): Result {
   return "lose";
 }
 
+// Do we need game stage?
 function HomeComponent() {
   const [score, setScore] = useState(0);
   const [userPick, setUserPick] = useState<Choice>();
@@ -127,7 +126,7 @@ function HomeComponent() {
         {gameStage === "waitingForUser" ? (
           <Choices onUserPick={handleUserPick} />
         ) : (
-          <Game
+          <Results
             userPick={userPick}
             housePick={housePick}
             result={result}
