@@ -55,6 +55,18 @@ function Game({
   );
 }
 
+function Scoreboard({ score }: { score: number }) {
+  return (
+    <header>
+      <h1>Rock Paper Scissors</h1>
+      <div>
+        <div>Score</div>
+        <div>{score}</div>
+      </div>
+    </header>
+  );
+}
+
 function determineResult(userPick: Choice, housePick: Choice): Result {
   console.log({ userPick, housePick });
 
@@ -110,13 +122,7 @@ function HomeComponent() {
 
   return (
     <div className="p-2">
-      <header>
-        <h1>Rock Paper Scissors</h1>
-        <div>
-          <div>Score</div>
-          <div>{score}</div>
-        </div>
-      </header>
+      <Scoreboard score={score} />
       <main>
         {gameStage === "waitingForUser" ? (
           <Choices onUserPick={handleUserPick} />
