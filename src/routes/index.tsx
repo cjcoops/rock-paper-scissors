@@ -120,7 +120,7 @@ function HomeComponent() {
   };
 
   return (
-    <div className="p-2">
+    <div className="p-2 font-barlow">
       <Scoreboard score={score} />
       <main>
         {gameStage === "waitingForUser" ? (
