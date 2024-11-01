@@ -3,12 +3,13 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import Scoreboard from "../components/Scoreboard";
 import Weapon from "../components/Weapon";
+import { WeaponNames, weapons } from "../weapons";
 
 export const Route = createFileRoute("/")({
   component: HomeComponent,
 });
 
-type Choice = "rock" | "paper" | "scissors" | undefined;
+type Choice = WeaponNames | undefined;
 type GameStage =
   | "waitingForUser"
   | "houseIsChoosing"
@@ -17,13 +18,11 @@ type GameStage =
 type Result = "win" | "lose" | "draw" | undefined;
 
 function Choices({ onUserPick }: { onUserPick: (userPick: Choice) => void }) {
-  return (
-    <>
-      <button onClick={() => onUserPick("rock")}>Rock</button>
-      <button onClick={() => onUserPick("paper")}>Paper</button>
-      <button onClick={() => onUserPick("scissors")}>Scissors</button>
-    </>
-  );
+  return weapons.map((weapon) => (
+    <button onClick={() => onUserPick(weapon.name)} key={weapon.name}>
+      <Weapon weapon={weapon} />
+    </button>
+  ));
 }
 
 function Results({
@@ -60,9 +59,9 @@ function Results({
 function determineResult(userPick: Choice, housePick: Choice): Result {
   if (!userPick || !housePick) return;
   if (userPick === housePick) return "draw";
-  if (userPick === "paper" && housePick === "rock") return "win";
-  if (userPick === "rock" && housePick === "scissors") return "win";
-  if (userPick === "scissors" && housePick === "paper") return "win";
+  if (userPick === "Paper" && housePick === "Rock") return "win";
+  if (userPick === "Rock" && housePick === "Scissors") return "win";
+  if (userPick === "Scissors" && housePick === "Paper") return "win";
   return "lose";
 }
 
@@ -79,7 +78,7 @@ function HomeComponent() {
     setGameStage("houseIsChoosing");
 
     setTimeout(() => {
-      const options: Choice[] = ["rock", "paper", "scissors"];
+      const options: Choice[] = weapons.map((w) => w.name);
       const randomIndex = Math.floor(Math.random() * options.length);
       const housePick = options[randomIndex];
       setHousePick(housePick);
@@ -113,7 +112,6 @@ function HomeComponent() {
     <div className="flex min-h-screen flex-col justify-center">
       <Scoreboard score={score} />
       <main>
-        <Weapon />
         {gameStage === "waitingForUser" ? (
           <Choices onUserPick={handleUserPick} />
         ) : (
