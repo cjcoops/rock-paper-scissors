@@ -59,20 +59,15 @@
           U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
       }
 
-      html {
-        color-scheme: light dark;
-      }
-      * {
-        @apply border-gray-200 dark:border-gray-800;
-      }
       body {
-        @apply bg-gray-50 text-gray-950 dark:bg-gray-900 dark:text-gray-200;
+        @apply font-barlow h-screen text-white;
+        background: radial-gradient(hsl(214, 47%, 23%), hsl(237, 49%, 15%));
       }
     </style>
   </head>
 
   <body>
-    <div id="app" className="font-barlow"></div>
+    <div id="app"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

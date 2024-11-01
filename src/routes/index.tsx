@@ -1,6 +1,7 @@
 import * as React from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import Scoreboard from "../components/Scoreboard";
 
 export const Route = createFileRoute("/")({
   component: HomeComponent,
@@ -52,18 +53,6 @@ function Results({
         </div>
       )}
     </div>
-  );
-}
-
-function Scoreboard({ score }: { score: number }) {
-  return (
-    <header>
-      <h1>Rock Paper Scissors</h1>
-      <div>
-        <div>Score</div>
-        <div>{score}</div>
-      </div>
-    </header>
   );
 }
 
@@ -120,7 +109,7 @@ function HomeComponent() {
   };
 
   return (
-    <div className="p-2 font-barlow">
+    <div className="flex min-h-screen flex-col justify-center">
       <Scoreboard score={score} />
       <main>
         {gameStage === "waitingForUser" ? (
