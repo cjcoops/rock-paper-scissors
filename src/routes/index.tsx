@@ -2,6 +2,7 @@ import * as React from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import Scoreboard from "../components/Scoreboard";
+import Weapon from "../components/Weapon";
 
 export const Route = createFileRoute("/")({
   component: HomeComponent,
@@ -112,6 +113,7 @@ function HomeComponent() {
     <div className="flex min-h-screen flex-col justify-center">
       <Scoreboard score={score} />
       <main>
+        <Weapon />
         {gameStage === "waitingForUser" ? (
           <Choices onUserPick={handleUserPick} />
         ) : (
