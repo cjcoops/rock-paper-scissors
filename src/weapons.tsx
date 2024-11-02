@@ -1,10 +1,5 @@
 export const weapons = [
   {
-    name: "Rock",
-    primaryColour: "rose-600",
-    icon: "images/icon-rock.svg",
-  },
-  {
     name: "Paper",
     primaryColour: "indigo-500",
     icon: "images/icon-paper.svg",
@@ -13,6 +8,11 @@ export const weapons = [
     name: "Scissors",
     primaryColour: "amber-500",
     icon: "images/icon-scissors.svg",
+  },
+  {
+    name: "Rock",
+    primaryColour: "rose-600",
+    icon: "images/icon-rock.svg",
   },
 ] as const;
 

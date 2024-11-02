@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Scoreboard from "../components/Scoreboard";
 import Weapon from "../components/Weapon";
 import { WeaponNames, weapons } from "../weapons";
+import clsx from "clsx";
 
 export const Route = createFileRoute("/")({
   component: HomeComponent,
@@ -18,11 +19,28 @@ type GameStage =
 type Result = "win" | "lose" | "draw" | undefined;
 
 function Choices({ onUserPick }: { onUserPick: (userPick: Choice) => void }) {
-  return weapons.map((weapon) => (
-    <button onClick={() => onUserPick(weapon.name)} key={weapon.name}>
-      <Weapon weapon={weapon} />
-    </button>
-  ));
+  const weaponButtons = weapons.map((weapon, index) => {
+    return (
+      <button
+        onClick={() => onUserPick(weapon.name)}
+        key={weapon.name}
+        className={clsx(
+          "absolute",
+          index === 0 && "left-0 top-0",
+          index === 1 && "right-0 top-0",
+          index === 2 && "bottom-0",
+        )}
+      >
+        <Weapon weapon={weapon} />
+      </button>
+    );
+  });
+
+  return (
+    <main className="relative mx-auto flex h-[400px] w-[450px] items-center justify-center">
+      {weaponButtons}
+    </main>
+  );
 }
 
 function Results({
@@ -109,20 +127,18 @@ function HomeComponent() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col justify-center">
+    <div className="flex min-h-screen flex-col justify-center gap-24">
       <Scoreboard score={score} />
-      <main>
-        {gameStage === "waitingForUser" ? (
-          <Choices onUserPick={handleUserPick} />
-        ) : (
-          <Results
-            userPick={userPick}
-            housePick={housePick}
-            result={result}
-            resetGame={resetGame}
-          />
-        )}
-      </main>
+      {gameStage === "waitingForUser" ? (
+        <Choices onUserPick={handleUserPick} />
+      ) : (
+        <Results
+          userPick={userPick}
+          housePick={housePick}
+          result={result}
+          resetGame={resetGame}
+        />
+      )}
     </div>
   );
 }
