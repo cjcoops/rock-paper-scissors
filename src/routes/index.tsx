@@ -2,8 +2,8 @@ import * as React from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import Scoreboard from "../components/Scoreboard";
-import Weapon from "../components/Weapon";
-import { WeaponNames, weapons } from "../weapons";
+import WeaponComponent from "../components/Weapon";
+import { Weapon, WeaponNames, weapons } from "../weapons";
 import clsx from "clsx";
 
 export const Route = createFileRoute("/")({
@@ -18,11 +18,11 @@ type GameStage =
   | "showResult";
 type Result = "win" | "lose" | "draw" | undefined;
 
-function Choices({ onUserPick }: { onUserPick: (userPick: Choice) => void }) {
+function Choices({ onUserPick }: { onUserPick: (userPick: Weapon) => void }) {
   const weaponButtons = weapons.map((weapon, index) => {
     return (
       <button
-        onClick={() => onUserPick(weapon.name)}
+        onClick={() => onUserPick(weapon)}
         key={weapon.name}
         className={clsx(
           "absolute",
@@ -31,7 +31,7 @@ function Choices({ onUserPick }: { onUserPick: (userPick: Choice) => void }) {
           index === 2 && "bottom-0",
         )}
       >
-        <Weapon weapon={weapon} />
+        <WeaponComponent weapon={weapon} />
       </button>
     );
   });
@@ -49,8 +49,8 @@ function Results({
   result,
   resetGame,
 }: {
-  userPick: Choice;
-  housePick: Choice;
+  userPick: Weapon | undefined;
+  housePick: Weapon | undefined;
   result: Result;
   resetGame: () => void;
 }) {
@@ -58,11 +58,11 @@ function Results({
     <div className="grid grid-cols-2">
       <div>
         <div>You picked</div>
-        <div>{userPick}</div>
+        <div>{userPick?.name}</div>
       </div>
       <div>
         <div>The house picked</div>
-        <div>{housePick}</div>
+        <div>{housePick?.name}</div>
       </div>
       {result && (
         <div>
@@ -74,31 +74,30 @@ function Results({
   );
 }
 
-function determineResult(userPick: Choice, housePick: Choice): Result {
+function determineResult(userPick: Weapon, housePick: Weapon): Result {
   if (!userPick || !housePick) return;
-  if (userPick === housePick) return "draw";
-  if (userPick === "Paper" && housePick === "Rock") return "win";
-  if (userPick === "Rock" && housePick === "Scissors") return "win";
-  if (userPick === "Scissors" && housePick === "Paper") return "win";
+  if (userPick.name === housePick.name) return "draw";
+  if (userPick.name === "Paper" && housePick.name === "Rock") return "win";
+  if (userPick.name === "Rock" && housePick.name === "Scissors") return "win";
+  if (userPick.name === "Scissors" && housePick.name === "Paper") return "win";
   return "lose";
 }
 
 // Do we need game stage?
 function HomeComponent() {
   const [score, setScore] = useState(0);
-  const [userPick, setUserPick] = useState<Choice>();
-  const [housePick, setHousePick] = useState<Choice>();
+  const [userPick, setUserPick] = useState<Weapon | undefined>();
+  const [housePick, setHousePick] = useState<Weapon | undefined>();
   const [gameStage, setGameStage] = useState<GameStage>("waitingForUser");
   const [result, setResult] = useState<Result>();
 
-  const handleUserPick = (userPick: Choice) => {
+  const handleUserPick = (userPick: Weapon) => {
     setUserPick(userPick);
     setGameStage("houseIsChoosing");
 
     setTimeout(() => {
-      const options: Choice[] = weapons.map((w) => w.name);
-      const randomIndex = Math.floor(Math.random() * options.length);
-      const housePick = options[randomIndex];
+      const randomIndex = Math.floor(Math.random() * weapons.length);
+      const housePick = weapons[randomIndex];
       setHousePick(housePick);
       setGameStage("waitingForResult");
 
