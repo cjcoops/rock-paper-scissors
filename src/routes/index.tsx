@@ -5,6 +5,7 @@ import Scoreboard from "../components/Scoreboard";
 import WeaponComponent from "../components/Weapon";
 import { Weapon, WeaponNames, weapons } from "../weapons";
 import clsx from "clsx";
+import WeaponContainer from "../components/WeaponContainer";
 
 export const Route = createFileRoute("/")({
   component: HomeComponent,
@@ -55,21 +56,20 @@ function Results({
   resetGame: () => void;
 }) {
   return (
-    <div className="grid grid-cols-2">
-      <div>
-        <div>You picked</div>
-        <div>{userPick?.name}</div>
-      </div>
-      <div>
-        <div>The house picked</div>
-        <div>{housePick?.name}</div>
-      </div>
+    <div className="mx-auto grid w-full max-w-xl auto-cols-auto grid-flow-col">
+      <WeaponContainer text="You Picked">
+        <WeaponComponent weapon={userPick} />
+      </WeaponContainer>
+
       {result && (
         <div>
           <div>You {result}</div>
           <button onClick={resetGame}>Play Again</button>
         </div>
       )}
+      <WeaponContainer text="The House picked">
+        <WeaponComponent weapon={housePick} />
+      </WeaponContainer>
     </div>
   );
 }
