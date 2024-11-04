@@ -1,78 +1,21 @@
-import * as React from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Scoreboard from "../components/Scoreboard";
-import WeaponComponent from "../components/Weapon";
-import { Weapon, WeaponNames, weapons } from "../weapons";
-import clsx from "clsx";
-import WeaponContainer from "../components/WeaponContainer";
+import { Weapon, weapons } from "../weapons";
+import Choices from "../components/Choices";
+import Result from "../components/Result";
+import Game from "../components/Game";
 
 export const Route = createFileRoute("/")({
   component: HomeComponent,
 });
 
-type Choice = WeaponNames | undefined;
 type GameStage =
   | "waitingForUser"
   | "houseIsChoosing"
   | "waitingForResult"
   | "showResult";
 type Result = "win" | "lose" | "draw" | undefined;
-
-function Choices({ onUserPick }: { onUserPick: (userPick: Weapon) => void }) {
-  const weaponButtons = weapons.map((weapon, index) => {
-    return (
-      <button
-        onClick={() => onUserPick(weapon)}
-        key={weapon.name}
-        className={clsx(
-          "absolute",
-          index === 0 && "left-0 top-0",
-          index === 1 && "right-0 top-0",
-          index === 2 && "bottom-0",
-        )}
-      >
-        <WeaponComponent weapon={weapon} />
-      </button>
-    );
-  });
-
-  return (
-    <main className="relative mx-auto flex h-[400px] w-[450px] items-center justify-center">
-      {weaponButtons}
-    </main>
-  );
-}
-
-function Results({
-  userPick,
-  housePick,
-  result,
-  resetGame,
-}: {
-  userPick: Weapon | undefined;
-  housePick: Weapon | undefined;
-  result: Result;
-  resetGame: () => void;
-}) {
-  return (
-    <div className="mx-auto grid w-full max-w-xl auto-cols-auto grid-flow-col">
-      <WeaponContainer text="You Picked">
-        <WeaponComponent weapon={userPick} />
-      </WeaponContainer>
-
-      {result && (
-        <div>
-          <div>You {result}</div>
-          <button onClick={resetGame}>Play Again</button>
-        </div>
-      )}
-      <WeaponContainer text="The House picked">
-        <WeaponComponent weapon={housePick} />
-      </WeaponContainer>
-    </div>
-  );
-}
 
 function determineResult(userPick: Weapon, housePick: Weapon): Result {
   if (!userPick || !housePick) return;
@@ -131,7 +74,7 @@ function HomeComponent() {
       {gameStage === "waitingForUser" ? (
         <Choices onUserPick={handleUserPick} />
       ) : (
-        <Results
+        <Game
           userPick={userPick}
           housePick={housePick}
           result={result}
