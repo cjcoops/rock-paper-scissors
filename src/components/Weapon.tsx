@@ -1,6 +1,7 @@
+import { FC } from "react";
 import { Weapon as WeaponType } from "../weapons-data";
 
-function Weapon({ weapon }: { weapon?: WeaponType }) {
+const Weapon: FC<{ weapon?: WeaponType }> = ({ weapon }) => {
   if (!weapon) {
     return (
       <div className={`h-48 w-48 rounded-full p-5`}>
@@ -15,6 +16,6 @@ function Weapon({ weapon }: { weapon?: WeaponType }) {
       </div>
     </div>
   );
-}
+};
 
 export default Weapon;

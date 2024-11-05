@@ -1,8 +1,7 @@
-import { Weapon } from "../weapons-data";
+import { Result, Weapon } from "../weapons-data";
 import ResultComponent from "./Result";
 import WeaponContainer from "./WeaponContainer";
 import WeaponComponent from "./Weapon";
-type Result = "win" | "lose" | "draw" | undefined;
 
 function Game({
   userPick,
@@ -12,7 +11,7 @@ function Game({
 }: {
   userPick: Weapon | undefined;
   housePick: Weapon | undefined;
-  result: Result;
+  result: Result | undefined;
   resetGame: () => void;
 }) {
   return (

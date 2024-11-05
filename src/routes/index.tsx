@@ -1,9 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import Scoreboard from "../components/Scoreboard";
-import { Weapon, WEAPONS } from "../weapons-data";
+import { Result, Weapon, WEAPONS } from "../weapons-data";
 import Choices from "../components/Choices";
-import Result from "../components/Result";
 import Game from "../components/Game";
 
 export const Route = createFileRoute("/")({
@@ -12,9 +11,10 @@ export const Route = createFileRoute("/")({
 
 const DELAY_MS = 1000;
 
-type Result = "win" | "lose" | "draw" | undefined;
-
-function determineResult(userPick: Weapon, housePick: Weapon): Result {
+function determineResult(
+  userPick: Weapon,
+  housePick: Weapon,
+): Result | undefined {
   if (!userPick || !housePick) return;
   if (userPick.beats === housePick.name) return "win";
   if (housePick.beats === userPick.name) return "lose";

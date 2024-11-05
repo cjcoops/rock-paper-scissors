@@ -21,3 +21,4 @@ export const WEAPONS = [
 
 export type Weapon = (typeof WEAPONS)[number];
 export type WeaponNames = (typeof WEAPONS)[number]["name"];
+export type Result = "win" | "lose" | "draw";
