@@ -1,10 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Scoreboard from "../components/Scoreboard";
 import { Result, Weapon, WEAPONS } from "../weapons-data";
 import Choices from "../components/Choices";
 import Game from "../components/Game";
 import { useScore } from "../useScore";
+import RulesDialog from "../components/RulesDialog";
 
 export const Route = createFileRoute("/")({
   component: HomeComponent,
@@ -52,7 +53,7 @@ function HomeComponent() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col justify-center gap-24">
+    <div className="relative flex min-h-screen flex-col justify-center gap-24">
       <Scoreboard score={score} />
       {!userPick ? (
         <Choices onUserPick={handleUserPick} />
@@ -64,6 +65,7 @@ function HomeComponent() {
           resetGame={resetGame}
         />
       )}
+      <RulesDialog />
     </div>
   );
 }
