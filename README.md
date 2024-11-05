@@ -19,7 +19,7 @@ This is a solution to the [Rock, Paper, Scissors challenge on Frontend Mentor](h
 Users should be able to:
 
 - Play Rock, Paper, Scissors against the computer
-- Maintain the state of the score after refreshing the browser _(optional)_
+- Maintain the state of the score after refreshing the browser
 
 ### Screenshot
 

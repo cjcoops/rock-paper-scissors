@@ -4,6 +4,7 @@ import Scoreboard from "../components/Scoreboard";
 import { Result, Weapon, WEAPONS } from "../weapons-data";
 import Choices from "../components/Choices";
 import Game from "../components/Game";
+import { useScore } from "../useScore";
 
 export const Route = createFileRoute("/")({
   component: HomeComponent,
@@ -22,7 +23,7 @@ function determineResult(
 }
 
 function HomeComponent() {
-  const [score, setScore] = useState(0);
+  const { score, updateScore } = useScore();
   const [userPick, setUserPick] = useState<Weapon | undefined>();
   const [housePick, setHousePick] = useState<Weapon | undefined>();
   const [result, setResult] = useState<Result>();
@@ -37,16 +38,9 @@ function HomeComponent() {
 
       setTimeout(() => {
         const result = determineResult(userPick, housePick);
+        if (!result) return;
         setResult(result);
-        setScore((prevScore: number) => {
-          if (result === "win") {
-            return prevScore + 1;
-          } else if (result === "lose") {
-            return prevScore - 1;
-          } else {
-            return prevScore;
-          }
-        });
+        updateScore(result);
       }, DELAY_MS);
     }, DELAY_MS);
   };
