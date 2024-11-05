@@ -53,18 +53,22 @@ function HomeComponent() {
   };
 
   return (
-    <div className="relative flex min-h-screen flex-col justify-center gap-24">
-      <Scoreboard score={score} />
-      {!userPick ? (
-        <Choices onUserPick={handleUserPick} />
-      ) : (
-        <Game
-          userPick={userPick}
-          housePick={housePick}
-          result={result}
-          resetGame={resetGame}
-        />
-      )}
+    <div className="min-h-screen">
+      <div className="fixed left-1/2 top-8 w-full max-w-2xl -translate-x-1/2">
+        <Scoreboard score={score} />
+      </div>
+      <div className="flex min-h-screen flex-col justify-center">
+        {!userPick ? (
+          <Choices onUserPick={handleUserPick} />
+        ) : (
+          <Game
+            userPick={userPick}
+            housePick={housePick}
+            result={result}
+            resetGame={resetGame}
+          />
+        )}
+      </div>
       <RulesDialog />
     </div>
   );

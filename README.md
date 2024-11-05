@@ -20,16 +20,15 @@ Users should be able to:
 
 - Play Rock, Paper, Scissors against the computer
 - Maintain the state of the score after refreshing the browser
+- Open rule in a Dialog
 
 ### Screenshot
 
-![](./screenshot.jpg)
-
-TODO
+![Screenshot of application](design/screenshot.png)
 
 ### Links
 
-- Live Site URL: [Rock Paper Scissors](https://rock-paper-scissors-nine-delta.vercel.app/)
+- Live Site URL: [https://rock-paper-scissors-nine-delta.vercel.app/](https://rock-paper-scissors-nine-delta.vercel.app/)
 
 ### Built with
 
