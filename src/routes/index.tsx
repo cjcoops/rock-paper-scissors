@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import Scoreboard from "../components/Scoreboard";
-import { Weapon, weapons } from "../weapons";
+import { Weapon, WEAPONS } from "../weapons-data";
 import Choices from "../components/Choices";
 import Result from "../components/Result";
 import Game from "../components/Game";
@@ -39,8 +39,8 @@ function HomeComponent() {
     setGameStage("houseIsChoosing");
 
     setTimeout(() => {
-      const randomIndex = Math.floor(Math.random() * weapons.length);
-      const housePick = weapons[randomIndex];
+      const randomIndex = Math.floor(Math.random() * WEAPONS.length);
+      const housePick = WEAPONS[randomIndex];
       setHousePick(housePick);
       setGameStage("waitingForResult");
 

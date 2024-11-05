@@ -1,4 +1,4 @@
-import { Weapon as WeaponType } from "../weapons";
+import { Weapon as WeaponType } from "../weapons-data";
 
 function Weapon({ weapon }: { weapon?: WeaponType }) {
   if (!weapon) {

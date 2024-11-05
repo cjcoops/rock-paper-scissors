@@ -1,4 +1,4 @@
-export const weapons = [
+export const WEAPONS = [
   {
     name: "Paper",
     primaryColour: "indigo-500",
@@ -16,5 +16,5 @@ export const weapons = [
   },
 ] as const;
 
-export type Weapon = (typeof weapons)[number];
-export type WeaponNames = (typeof weapons)[number]["name"];
+export type Weapon = (typeof WEAPONS)[number];
+export type WeaponNames = (typeof WEAPONS)[number]["name"];

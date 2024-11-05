@@ -1,12 +1,12 @@
 import { FC } from "react";
-import { Weapon, weapons } from "../weapons";
+import { Weapon, WEAPONS } from "../weapons-data";
 import clsx from "clsx";
 import WeaponComponent from "./Weapon";
 
 const Choices: FC<{ onUserPick: (userPick: Weapon) => void }> = ({
   onUserPick,
 }) => {
-  const weaponButtons = weapons.map((weapon, index) => {
+  const weaponButtons = WEAPONS.map((weapon, index) => {
     return (
       <button
         onClick={() => onUserPick(weapon)}

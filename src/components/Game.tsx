@@ -1,4 +1,4 @@
-import { Weapon } from "../weapons";
+import { Weapon } from "../weapons-data";
 import ResultComponent from "./Result";
 import WeaponContainer from "./WeaponContainer";
 import WeaponComponent from "./Weapon";
